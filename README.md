@@ -21,7 +21,7 @@ composer require askancy/howlongtobeat
 #### Search
 
 ```php
-use IvanKayzer\HowLongToBeat\HowLongToBeat;
+use Askancy\HowLongToBeat\HowLongToBeat;
 
 $hl2b = new HowLongToBeat();
 $hl2b->search('Lego');
