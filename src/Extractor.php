@@ -1,6 +1,6 @@
 <?php
 
-namespace IvanKayzer\HowLongToBeat;
+namespace Askancy\HowLongToBeat;
 interface Extractor
 {
     public function extract(): array;

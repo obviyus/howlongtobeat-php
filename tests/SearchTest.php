@@ -1,6 +1,6 @@
 <?php
 
-use IvanKayzer\HowLongToBeat\HowLongToBeat;
+use Askancy\HowLongToBeat\HowLongToBeat;
 use Symfony\Component\DomCrawler\Crawler;
 
 class SearchTest extends \PHPUnit\Framework\TestCase

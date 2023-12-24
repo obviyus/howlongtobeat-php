@@ -1,7 +1,7 @@
 # howlongtobeat
 
-![](https://github.com/ivankayzer/howlongtobeat/workflows/PHP%20Workflow/badge.svg)
-![](https://img.shields.io/codeclimate/maintainability-percentage/ivankayzer/howlongtobeat)
+![](https://github.com/Askancy/howlongtobeat/workflows/PHP%20Workflow/badge.svg)
+![](https://img.shields.io/codeclimate/maintainability-percentage/Askancy/howlongtobeat)
 
 ## About
 howlongtobeat provides information and data about games and how long it will take to finish them.
@@ -84,7 +84,7 @@ $hl2b->search('Lego', 2);
 #### Get time entries by game ID
 
 ```php
-use IvanKayzer\HowLongToBeat\HowLongToBeat;
+use Askancy\HowLongToBeat\HowLongToBeat;
 
 $hl2b = new HowLongToBeat();
 $hl2b->get(5265);

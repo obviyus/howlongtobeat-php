@@ -1,6 +1,6 @@
 <?php
 
-use IvanKayzer\HowLongToBeat\HowLongToBeat;
+use Askancy\HowLongToBeat\HowLongToBeat;
 
 class GetByIdTest extends \PHPUnit\Framework\TestCase
 {

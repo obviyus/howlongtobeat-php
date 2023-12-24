@@ -1,6 +1,6 @@
 {
     "name": "askancy/howlongtobeat",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "authors": [
         {
             "name": "Ivan Kayzer",
@@ -8,12 +8,12 @@
         }
     ],
     "keywords": ["how long to beat", "hl2b", "howlongtobeat"],
-    "homepage": "https://github.com/ivankayzer/howlongtobeat",
+    "homepage": "https://github.com/Askancy/howlongtobeat",
     "license": "MIT",
     "description": "howlongtobeat.com provides information about games and how long it will take to finish them. This library is a simple wrapper to fetch data from Howlongtobeat website",
     "autoload": {
         "psr-4": {
-            "IvanKayzer\\HowLongToBeat\\": "src/"
+            "Askancy\\HowLongToBeat\\": "src/"
         }
     },
     "require-dev": {

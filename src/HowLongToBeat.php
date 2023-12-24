@@ -1,6 +1,6 @@
 <?php
 
-namespace IvanKayzer\HowLongToBeat;
+namespace Askancy\HowLongToBeat;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
