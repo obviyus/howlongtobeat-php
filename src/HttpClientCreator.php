@@ -1,6 +1,6 @@
 <?php
 
-namespace Askancy\HowLongToBeat;
+namespace obviyus\HowLongToBeat;
 
 use GuzzleHttp\Client;
 

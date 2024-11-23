@@ -1,6 +1,6 @@
 <?php
 
-namespace Askancy\HowLongToBeat;
+namespace obviyus\HowLongToBeat;
 
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -16,7 +16,7 @@ class CrawlerExtractor implements Extractor
      */
     protected $utilities;
 
-    public function __construct(Crawler $node, Utilities $utilities = null)
+    public function __construct(Crawler $node, ?Utilities $utilities = null)
     {
         $this->node = $node;
         $this->utilities = $utilities ?? new Utilities();
