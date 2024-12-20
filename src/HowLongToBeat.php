@@ -44,20 +44,20 @@ class HowLongToBeat
             $scripts = $crawler->filter('script[src]');
 
             foreach ($scripts as $script) {
-                if ($script instanceof \DOMElement) { // Type hinting
+                if ($script instanceof \DOMElement) {
                     $src = $script->getAttribute('src');
                     if ($src && strpos($src, '_app-') !== false) {
                         $scriptUrl = 'https://www.howlongtobeat.com' . $src;
-            
+
                         $scriptResponse = $this->client->get($scriptUrl)->getBody()->getContents();
-            
+
                         $userIdPattern = '/users\s*:\s*{\s*id\s*:\s*"([^"]+)"/';
                         if (preg_match($userIdPattern, $scriptResponse, $matches)) {
                             self::$cachedApiKey = $matches[1];
                             return $matches[1];
                         }
-            
-                        $concatPattern = '/\/api\/search\/"(?:\.concat\("[^"]*"\))*/';
+
+                        $concatPattern = '/\/api\/find\/(?:\.concat\("[^"]*"\))*/';
                         if (preg_match($concatPattern, $scriptResponse, $matches)) {
                             $parts = explode('.concat', $matches[0]);
                             $key = '';
@@ -70,7 +70,6 @@ class HowLongToBeat
                     }
                 }
             }
-            
         } catch (GuzzleException $e) {
             return null;
         }
@@ -90,38 +89,47 @@ class HowLongToBeat
         try {
             $response = $this->client->post('https://howlongtobeat.com' . $this->apiKey, [
                 'json' =>
-                    [
-                        'searchType' => 'games',
-                        'searchTerms' => [
-                            $query
+                [
+                    'searchType' => 'games',
+                    'searchTerms' => explode(' ', $query),
+                    'searchPage' => $page,
+                    'size' => 20,
+                    'searchOptions' => [
+                        'games' => [
+                            'userId' => 0,
+                            'platform' => '',
+                            'sortCategory' => 'popular',
+                            'rangeCategory' => 'main',
+                            'rangeTime' => [
+                                'min' => 0,
+                                'max' => 0,
+                            ],
+                            'gameplay' => [
+                                'perspective' => '',
+                                'flow' => '',
+                                'genre' => '',
+                                'difficulty' => '',
+                            ],
+                            'rangeYear' => [
+                                'min' => '',
+                                'max' => '',
+                            ],
+                            'modifier' => '',
                         ],
-                        'searchPage' => $page,
-                        'size' => 20,
-                        'searchOptions' => [
-                            'games' => [
-                                'platform' => '',
-                                'sortCategory' => 'popular',
-                                'rangeCategory' => 'main',
-                                'rangeTime' => [
-                                    'min' => 0,
-                                    'max' => 0
-                                ],
-                                'gameplay' => [
-                                    'perspective' => '',
-                                    'flow' => '',
-                                    'genre' => ''
-                                ],
-                                'year' => '',
-                                'modifier' => ''
-                            ],
-                            'users' => [
-                                'sortCategory' => 'postcount'
-                            ],
-                            'filter' => '',
-                            'sort' => 0,
-                            'randomizer' => 0
-                        ]
-                    ]]);
+                        'users' => [
+                            'sortCategory' => 'postcount',
+                            'id' => $this->apiKey,
+                        ],
+                        'lists' => [
+                            'sortCategory' => 'follows',
+                        ],
+                        'filter' => '',
+                        'sort' => 0,
+                        'randomizer' => 0,
+                    ],
+                    'useCache' => true,
+                ]
+            ]);
 
             $searchResult = json_decode($response->getBody()->getContents(), true);
 
@@ -142,12 +150,11 @@ class HowLongToBeat
             ];
         } catch (GuzzleException $e) {
             if ($e->getCode() === 404) {
-                // Refresh the API key and retry
                 $this->apiKey = $this->fetchApiKey();
                 return $this->search($query, $page);
             }
 
-            throw $e; // Re-throw other exceptions
+            throw $e;
         }
     }
 
